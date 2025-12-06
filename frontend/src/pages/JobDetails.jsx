@@ -3,26 +3,15 @@ import { useParams } from "react-router-dom";
 import API from "../lib/axiosInstance";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import ApplyResumeModal from "../components/ApplyResumeModal";
 
 export default function JobDetails() {
   const { id } = useParams();
   const [job, setJob] = useState(null);
   const [applied, setApplied] = useState(false);
+  const [showApplyModal, setShowApplyModal] = useState(false);
+
   const user = JSON.parse(localStorage.getItem("user"));
-
-
-  const handleApply = async () => {
-    try {
-      await API.post(`/applications/apply/${id}`);
-      setApplied(true);
-      alert("Applied Successfully!");
-    } catch (err) {
-      if (err.response?.data?.message === "You have already applied for this job") {
-        setApplied(true);
-      }
-      alert(err.response?.data?.message || "Error applying");
-    }
-  };
 
   useEffect(() => {
     const fetchJob = async () => {
@@ -87,23 +76,33 @@ export default function JobDetails() {
               </p>
             </div>
 
-            {/* APPLY BUTTON */}
-
-            {user?.role === 'jobseeker' && (
-            <div className="flex justify-center pt-4">
-              <Button
-                className="w-56 bg-green-500 hover:bg-green-600 text-black font-semibold shadow-lg"
-                onClick={handleApply}
-                disabled={applied}
-              >
-                {applied ? "Already Applied" : "Apply Now"}
-              </Button>
-            </div>
+            {/* APPLY BUTTON (JOBSEEKERS ONLY) */}
+            {user?.role === "jobseeker" && (
+              <div className="flex justify-center pt-4">
+                <Button
+                  className="w-56 bg-green-500 hover:bg-green-600 text-black font-semibold shadow-lg"
+                  onClick={() => setShowApplyModal(true)}
+                  disabled={applied}
+                >
+                  {applied ? "Already Applied" : "Apply Now"}
+                </Button>
+              </div>
             )}
 
           </CardContent>
         </Card>
       </div>
+
+      {/* APPLY RESUME MODAL */}
+      <ApplyResumeModal
+        open={showApplyModal}
+        jobId={id}
+        onClose={(success) => {
+          setShowApplyModal(false);
+          if (success) setApplied(true);
+        }}
+      />
+
     </div>
   );
 }

@@ -40,7 +40,7 @@ export default function ProfileSidebar({ user }) {
           mt-3 text-xs px-3 py-1 rounded-full 
           bg-green-500/20 text-green-400 border border-green-600/30
         ">
-          {user.role}
+          {user.role.toUpperCase()}
         </span>
       </div>
 

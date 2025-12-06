@@ -31,6 +31,7 @@ const userSchema = new mongoose.Schema({
     min: 10,
     max: 13,
   },
+
   skills: {
     type: [String],
     default: [],
@@ -53,10 +54,12 @@ const userSchema = new mongoose.Schema({
     type: String, 
     default: "" 
   }, // Cloudinary URL
+  profilePhotoId :String,
   resume: { 
     type: String, 
     default: "" 
   }, // Cloudinary URL
+  resumeId : String,
 
   // EMPLOYER FIELDS
   companyName: { type: String, default: "" },

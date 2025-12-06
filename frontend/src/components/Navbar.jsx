@@ -1,23 +1,23 @@
 import { Link, useNavigate } from "react-router-dom";
-import { LogOut } from "lucide-react";
 
 export default function Navbar() {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
   const user = JSON.parse(localStorage.getItem("user"));
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    navigate("/login");
-  };
+
+  // const handleLogout = () => {
+  //   localStorage.removeItem("token");
+  //   localStorage.removeItem("user");
+  //   navigate("/login");
+  // };
 
   return (
     <nav
       className="flex justify-between items-center 
       px-10 py-4 fixed top-0 left-0 w-full z-50
       bg-[#0b1120]/80 backdrop-blur-xl 
-      border-b border-white/10
+      
       text-white shadow-md"
     >
 
@@ -81,7 +81,7 @@ export default function Navbar() {
             >
               <img
                 src={
-                  user?.profilePhoto ||
+                 user?.profilePhoto ||
                   "https://cdn-icons-png.flaticon.com/512/847/847969.png"
                 }
                 className="w-full h-full object-cover"

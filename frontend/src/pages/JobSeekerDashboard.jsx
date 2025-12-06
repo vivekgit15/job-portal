@@ -22,7 +22,7 @@ export default function JobseekerDashboard() {
         setJobs(all.data);
 
         const applied = await API.get("/applications/my");
-        const appliedIds = applied.data.map((a) => a.job._id);
+        const appliedIds = applied.data.map((a) => a.job?._id);
         setAppliedJobIds(appliedIds);
       } catch (err) {
         console.error(err);
@@ -30,6 +30,12 @@ export default function JobseekerDashboard() {
     };
     fetchData();
   }, []);
+
+//   useEffect(() => {
+//   console.log("JOBS:", jobs);
+//   console.log("APPLIED IDS:", appliedJobIds);
+// }, [jobs, appliedJobIds]);
+
 
   const filteredJobs = jobs.filter((job) => {
     return (
@@ -127,13 +133,14 @@ export default function JobseekerDashboard() {
                   {job.description}
                 </p>
             <span className="flex gap-3">
-                <Button
-                  className="mt-4 w-1/6  bg-green-500 hover:bg-green-600 text-black font-semibold"
-                  onClick={() => navigate(`/job/${job._id}`)}
-                  disabled={appliedJobIds.includes(job._id)}
-                >
-                  {appliedJobIds.includes(job._id) ? "Applied" : "View Details"}
-                </Button>
+<Button
+  className="mt-4 w-1/6 bg-green-500 hover:bg-green-600 text-black font-semibold"
+  onClick={() => navigate(`/job/${job._id}`)}
+  disabled={appliedJobIds.includes(job._id)}
+>
+  {appliedJobIds.includes(job._id) ? "Applied" : "Apply"}
+</Button>
+
                 <Button
                   className="mt-4 w-1/5 md: w-1/4 bg-green-500 hover:bg-green-600 text-black font-semibold"
                   onClick={() => navigate(`/job/${job._id}`)}

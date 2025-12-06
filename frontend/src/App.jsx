@@ -8,12 +8,14 @@ import EmployerDashboard from './pages/EmployerDashboard'
 import ProtectedRoute from './components/ProtectedRoute'
 import JobDetails from './pages/JobDetails'
 import Applicants from "./pages/Applicants";
-
 import MyApplications from "./pages/MyApplications";
-
 import Navbar from './components/Navbar'
 import PostJob from './components/PostJob'
 import Profile from './pages/Profile'
+import ResetPassword from './pages/ResetPassword'
+import ForgotPassword from './pages/ForgotPassword'
+import ChangePassword from './pages/ChangePassword'
+
 
 const App = () => {
   return (
@@ -57,6 +59,13 @@ const App = () => {
     </ProtectedRoute>
   }
 />
+
+
+  <Route path="/reset-password" element={<ResetPassword />} />
+    <Route path="/forgot-password" element={<ForgotPassword />} />
+    <Route path="/profile/change-password" element={<ChangePassword />} />
+
+
 
         <Route path="/employer" element={<EmployerDashboard />} />
 

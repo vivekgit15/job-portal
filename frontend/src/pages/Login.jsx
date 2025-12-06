@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -103,6 +104,14 @@ export default function Login() {
             >
               Login
             </Button>
+            <div className="flex justify-end">
+              <Link 
+                to="/forgot-password"
+                className="text-sm text-blue-100 hover:underline"
+              >
+                Forgot Password?
+              </Link>
+            </div>
 
           </form>
         </CardContent>
